@@ -23,7 +23,7 @@ const operate = (operator, num1, num2) => {
 };
 
 const displayNumber = (num) => {
-  document.getElementById('screen');
+  document.getElementById('screen').textContent = num;
 };
 
 const btn0Click = () => {
@@ -32,3 +32,6 @@ const btn0Click = () => {
 
 const btn0 = document.getElementById('btn-0');
 btn0.addEventListener('click', btn0Click);
+
+let displayValue = 0;
+displayNumber(displayValue);
