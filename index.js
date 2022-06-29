@@ -23,7 +23,8 @@ const operate = (operator, num1, num2) => {
 };
 
 const displayNumber = (num) => {
-  console.log(`number to display: ${num}`);
+  // console.log(`number to display: ${num}`);
+  displayValue = num;
   document.getElementById('screen').textContent = num;
 };
 
