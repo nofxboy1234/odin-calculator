@@ -17,10 +17,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 5px solid red; */
 }
 
-.btn {
+.btn,
+.btn-num {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -40,7 +40,7 @@ const displayNumber = (num) => {
 // const btn0 = document.getElementById('btn-0');
 // btn0.addEventListener('click', btn0Click);
 
-const numbers = document.querySelectorAll('.number');
+const numbers = document.querySelectorAll('.btn-num');
 numbers.forEach((num) =>
   num.addEventListener('click', (e) => {
     // console.log(e.target);
