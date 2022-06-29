@@ -1,3 +1,18 @@
+.display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border: 5px solid red;
+  width: 400px;
+  font-size: 64px;
+}
+
 .row {
   display: flex;
   justify-content: center;
