@@ -21,3 +21,14 @@ const divide = (num1, num2) => {
 const operate = (operator, num1, num2) => {
   return operator(num1, num2);
 };
+
+const displayNumber = (num) => {
+  document.getElementById('screen');
+};
+
+const btn0Click = () => {
+  console.log('button 0 clicked');
+};
+
+const btn0 = document.getElementById('btn-0');
+btn0.addEventListener('click', btn0Click);
