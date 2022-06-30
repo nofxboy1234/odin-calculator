@@ -5,6 +5,7 @@
 }
 
 #screen {
+  flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -22,6 +23,7 @@
 .btn,
 .btn-operator,
 .btn-num {
+  flex: 0 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
