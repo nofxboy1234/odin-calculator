@@ -20,6 +20,7 @@
 }
 
 .btn,
+.btn-operator,
 .btn-num {
   display: flex;
   justify-content: center;
@@ -27,7 +28,6 @@
   border: 1px solid black;
   width: 100px;
   height: 100px;
-  text-align: center;
   color: blue;
   font-size: 64px;
 }

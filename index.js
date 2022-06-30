@@ -31,6 +31,3 @@ const numbers = document.querySelectorAll('.btn-num');
 numbers.forEach((num) =>
   num.addEventListener('click', (e) => displayNumber(e.target.textContent))
 );
-
-let displayValue = 0;
-displayNumber(displayValue);
