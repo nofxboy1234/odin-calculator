@@ -23,8 +23,12 @@ const operate = (operator, num1, num2) => {
   return func(num1, num2);
 };
 
-const storeValue = (value) => {
+const storeNumber = (value) => {
   storedValues.push(Number(value));
+};
+
+const storeOperator = (value) => {
+  storedValues.push(value);
 };
 
 const displayNumber = (num) => {
@@ -40,27 +44,27 @@ const displayNumber = (num) => {
   }
 };
 
-// const displayNumberAndOperator = (num, operator) => {
-//   console.log('displayNumberAndOperator');
-// };
+const displayNumberAndOperator = (num, operator) => {
+  console.log('displayNumberAndOperator');
+};
 
 const numberButtons = document.querySelectorAll('.btn-num');
 numberButtons.forEach((num) => {
   num.addEventListener('click', (e) => {
     displayNumber(e.target.textContent);
-    storeValue(e.target.textContent);
+    storeNumber(e.target.textContent);
   });
 });
 
-// const operators = document.querySelectorAll('.btn-operator');
-// operators.forEach((operator) => {
-//   operator.addEventListener('click', (e) => {
-//     const solution = calculateSolution();
-//     storeValue(e.target.textContent);
-//     displayNumber(e.target.textContent);
-//   });
-// });
+const operatorButtons = document.querySelectorAll('.btn-operator');
+operatorButtons.forEach((operator) => {
+  operator.addEventListener('click', (e) => {
+    // const solution = calculateSolution();
+    // displayNumberAndOperator(e.target.textContent);
+    storeOperator(e.target.textContent);
+  });
+});
 
 let storedValues = [];
-storeValue(0);
+storeNumber(0);
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
