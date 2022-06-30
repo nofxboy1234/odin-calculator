@@ -50,13 +50,23 @@ const calculateSolution = () => {
 
 const initializeStoredValues = (num1, operator) => {
   storedValues = [num1];
-  lastOperator = operator === '=' ? '+' : operator;
+  // lastOperator = operator === '=' ? undefined : operator;
+  lastOperator = operator;
+  canEnterOperator = true;
   operatorEntered = true;
 };
 
 const numbers = document.querySelectorAll('.btn-num');
 numbers.forEach((num) => {
   num.addEventListener('click', (e) => {
+    canEnterOperator = true;
+
+    if (lastOperator === '=') {
+      initializeStoredValues(e.target.textContent, lastOperator);
+      storeValue(e.target.textContent);
+      displayNumber(e.target.textContent);
+    }
+
     storeValue(e.target.textContent);
     displayNumber(e.target.textContent);
     operatorEntered = false;
@@ -66,7 +76,12 @@ numbers.forEach((num) => {
 const operators = document.querySelectorAll('.btn-operator');
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
+    if (!canEnterOperator) {
+      return;
+    }
+
     operatorEntered = true;
+    canEnterOperator = false;
     const solution = calculateSolution();
     lastOperator = e.target.textContent;
     initializeStoredValues(solution, lastOperator);
@@ -76,5 +91,6 @@ operators.forEach((operator) => {
 
 let storedValues = [0];
 let lastOperator = '+';
+let canEnterOperator = false;
 let operatorEntered = true;
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
