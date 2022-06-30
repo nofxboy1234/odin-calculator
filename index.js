@@ -38,12 +38,12 @@ const displayNumber = (num) => {
   }
 };
 
-const calculateSolution = (operator) => {
-  console.log(`operator: ${operator}`);
+const calculateSolution = () => {
+  console.log(`operator: ${lastOperator}`);
   const num1 = storedValues[0];
   const num2 = storedValues[1];
 
-  const solution = operate(operator, num1, num2);
+  const solution = operate(lastOperator, num1, num2);
   console.log(`solution: ${solution}`);
   return solution;
 };
@@ -65,7 +65,8 @@ const operators = document.querySelectorAll('.btn-operator');
 operators.forEach((operator) => {
   operator.addEventListener('click', (e) => {
     operatorEntered = true;
-    const solution = calculateSolution(e.target.textContent);
+    const solution = calculateSolution();
+    lastOperator = e.target.textContent;
     initializeStoredValues(solution);
     displayNumber(solution);
   });
@@ -73,4 +74,5 @@ operators.forEach((operator) => {
 
 let storedValues = [0];
 let operatorEntered = true;
+let lastOperator = '+';
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
