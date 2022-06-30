@@ -48,8 +48,10 @@ const calculateSolution = () => {
   return solution;
 };
 
-const initializeStoredValues = (num1) => {
+const initializeStoredValues = (num1, operator) => {
   storedValues = [num1];
+  lastOperator = operator === '=' ? '+' : operator;
+  operatorEntered = true;
 };
 
 const numbers = document.querySelectorAll('.btn-num');
@@ -67,12 +69,12 @@ operators.forEach((operator) => {
     operatorEntered = true;
     const solution = calculateSolution();
     lastOperator = e.target.textContent;
-    initializeStoredValues(solution);
+    initializeStoredValues(solution, lastOperator);
     displayNumber(solution);
   });
 });
 
 let storedValues = [0];
-let operatorEntered = true;
 let lastOperator = '+';
+let operatorEntered = true;
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
