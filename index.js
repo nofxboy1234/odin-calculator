@@ -107,6 +107,13 @@ equalsButton.addEventListener('click', (e) => {
   totalWasCalculated = true;
 });
 
+const clearButton = document.querySelector('.btn-clear');
+clearButton.addEventListener('click', (e) => {
+  replaceValueOnScreen(0);
+  values = [];
+  clearSubcalcScreen();
+});
+
 let values = [];
 let totalWasCalculated = false;
 
