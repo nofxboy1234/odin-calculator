@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "name": "file:///home/dylan/repos/calculator/index.html",
+      "request": "launch",
+      "url": "file:///home/dylan/repos/calculator/index.html"
+    }
+  ]
+}

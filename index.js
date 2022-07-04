@@ -1,112 +1,76 @@
 const add = (num1, num2) => {
-  console.log('add!');
   return num1 + num2;
 };
 
 const subtract = (num1, num2) => {
-  console.log('subtract!');
   return num1 - num2;
 };
 
 const multiply = (num1, num2) => {
-  console.log('multiply!');
   return num1 * num2;
 };
 
 const divide = (num1, num2) => {
-  console.log('divide!');
   return num1 / num2;
 };
 
 const operate = (operator, num1, num2) => {
   const func = operatorFunctions[operator];
-  return func(Number(num1), Number(num2));
+  return func(num1, num2);
 };
 
-const storeNumber = (value) => {
-  const screen = document.getElementById('screen');
-  // Store what is displayed on the screen
-  // Replace index 0 or 2 of storedValues
-  // Check if there is an operator stored
-  let found = false;
-  Object.keys(operatorFunctions).forEach((operator) => {
-    found = storedValues.includes(operator);
-  });
-
-  if (found) {
-    // Replace index 2
-    storedValues[2] = Number(screen.textContent);
+const displayNumberOnScreen = (num) => {
+  if (
+    Number(screenValue()) === 0 ||
+    Object.keys(operatorFunctions).includes(values.at(-1))
+  ) {
+    replaceValueOnScreen(num);
   } else {
-    // Replace index 0
-    storedValues[0] = Number(screen.textContent);
+    appendValueToScreen(num);
   }
 };
 
-const storeOperator = (value) => {
-  storedValues.push(value);
+const storeScreenNumber = () => {
+  values.push(Number(screenValue()));
 };
 
-const displayNumber = (num) => {
-  const screen = document.getElementById('screen');
-
-  let lastStoredValue = storedValues.at(-1);
-  if (typeof lastStoredValue === 'number') {
-    if (lastStoredValue === 0) {
-      screen.textContent = num;
-    } else {
-      screen.textContent = screen.textContent.concat(num);
-    }
-  }
+const storeOperator = (operator) => {
+  values.push(operator);
 };
 
-const displaySolution = (num) => {
-  const screen = document.getElementById('screen');
-  screen.textContent = num;
+const screenValue = () => {
+  return document.getElementById('screen').textContent;
 };
 
-const displayNumberAndOperator = (num, operator) => {
-  console.log('displayNumberAndOperator');
+const replaceValueOnScreen = (num) => {
+  document.getElementById('screen').textContent = num;
+};
+
+const appendValueToScreen = (num) => {
+  let screen = document.getElementById('screen');
+  screen.textContent = screen.textContent.concat(num);
 };
 
 const numberButtons = document.querySelectorAll('.btn-num');
 numberButtons.forEach((num) => {
   num.addEventListener('click', (e) => {
-    displayNumber(e.target.textContent);
-    storeNumber(e.target.textContent);
+    displayNumberOnScreen(e.target.textContent);
   });
 });
 
 const operatorButtons = document.querySelectorAll('.btn-operator');
-operatorButtons.forEach((operator) => {
-  operator.addEventListener('click', (e) => {
-    // const solution = calculateSolution();
-    // displayNumberAndOperator(e.target.textContent);
+operatorButtons.forEach((op) => {
+  op.addEventListener('click', (e) => {
+    storeScreenNumber();
+    storeOperator(e.target.textContent);
 
-    let operatorEntered;
-    // If there's already an operator stored
-    if (Object.keys(operatorFunctions).includes(storedValues.at(-1))) {
-      operatorEntered = true;
-    } else {
-      operatorEntered = false;
-    }
-
-    if (operatorEntered) {
-      return;
-    }
-
-    if (storedValues.length === 3) {
-      console.log('Operate on num1 and num2');
-      const num1 = storedValues[0];
-      const operator = storedValues[1];
-      const num2 = storedValues[2];
-      const solution = operate(operator, num1, num2);
-      displaySolution(solution);
-    } else {
+    if (values.length === 4) {
+      values = [operate(values[1], values[0], values[2])];
       storeOperator(e.target.textContent);
     }
   });
 });
 
-let storedValues = [];
+let values = [];
+
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
-storeNumber(0);
