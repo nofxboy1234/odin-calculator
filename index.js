@@ -51,6 +51,26 @@ const appendValueToScreen = (num) => {
   screen.textContent = screen.textContent.concat(num);
 };
 
+const calculateSubtotal = () => {
+  values = [operate(values[1], values[0], values[2])];
+};
+
+// const calculateSubtotalForEquals = () => {
+//   values = [operate(values[1], values[0], values[2])];
+// };
+
+// const calculateTotal = () => {
+//   values = [operate(values[1], values[0], Number(screenValue()))];
+// };
+
+const displaySubcalc = () => {
+  document.getElementById('sub-calc').textContent = values.join(' ');
+};
+
+const displaySubcalcAfterEquals = (num) => {
+  document.getElementById('sub-calc').textContent = values.join(' ');
+};
+
 const numberButtons = document.querySelectorAll('.btn-num');
 numberButtons.forEach((num) => {
   num.addEventListener('click', (e) => {
@@ -65,10 +85,23 @@ operatorButtons.forEach((op) => {
     storeOperator(e.target.textContent);
 
     if (values.length === 4) {
-      values = [operate(values[1], values[0], values[2])];
+      calculateSubtotal();
       storeOperator(e.target.textContent);
+      displayNumberOnScreen(values[0]);
     }
+
+    displaySubcalc();
   });
+});
+
+const equalsButton = document.querySelector('.btn-equals');
+equalsButton.addEventListener('click', (e) => {
+  storeScreenNumber();
+  storeOperator(e.target.textContent);
+
+  displaySubcalcAfterEquals(screenValue());
+  calculateSubtotal();
+  replaceValueOnScreen(values[0]);
 });
 
 let values = [];
