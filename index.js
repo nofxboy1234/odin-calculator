@@ -22,12 +22,21 @@ const operate = (operator, num1, num2) => {
 const displayNumberOnScreen = (num) => {
   if (
     Number(screenValue()) === 0 ||
-    Object.keys(operatorFunctions).includes(values.at(-1))
+    Object.keys(operatorFunctions).includes(values.at(-1)) ||
+    totalWasCalculated
   ) {
     replaceValueOnScreen(num);
+    if (totalWasCalculated) {
+      totalWasCalculated = false;
+      clearSubcalcScreen();
+    }
   } else {
     appendValueToScreen(num);
   }
+};
+
+const clearSubcalcScreen = () => {
+  document.getElementById('sub-calc').textContent = '';
 };
 
 const storeScreenNumber = () => {
@@ -55,19 +64,11 @@ const calculateSubtotal = () => {
   values = [operate(values[1], values[0], values[2])];
 };
 
-// const calculateSubtotalForEquals = () => {
-//   values = [operate(values[1], values[0], values[2])];
-// };
-
-// const calculateTotal = () => {
-//   values = [operate(values[1], values[0], Number(screenValue()))];
-// };
-
 const displaySubcalc = () => {
   document.getElementById('sub-calc').textContent = values.join(' ');
 };
 
-const displaySubcalcAfterEquals = (num) => {
+const displaySubcalcAfterEquals = () => {
   document.getElementById('sub-calc').textContent = values.join(' ');
 };
 
@@ -99,11 +100,14 @@ equalsButton.addEventListener('click', (e) => {
   storeScreenNumber();
   storeOperator(e.target.textContent);
 
-  displaySubcalcAfterEquals(screenValue());
+  displaySubcalcAfterEquals();
   calculateSubtotal();
   replaceValueOnScreen(values[0]);
+  values = [];
+  totalWasCalculated = true;
 });
 
 let values = [];
+let totalWasCalculated = false;
 
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
