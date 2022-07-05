@@ -23,16 +23,27 @@ const displayNumberOnScreen = (num) => {
   if (
     Number(screenValue()) === 0 ||
     Object.keys(operatorFunctions).includes(values.at(-1)) ||
-    totalWasCalculated
+    totalWasCalculated ||
+    dividedByZero
   ) {
     replaceValueOnScreen(num);
     if (totalWasCalculated) {
       totalWasCalculated = false;
-      clearSubcalcScreen();
+      resetValuesAndSubcalc();
+    }
+    if (dividedByZero) {
+      dividedByZero = false;
+      resetValuesAndSubcalc();
+      toggleScreenMessageStyle();
     }
   } else {
     appendValueToScreen(num);
   }
+};
+
+const resetValuesAndSubcalc = () => {
+  values = [];
+  clearSubcalcScreen();
 };
 
 const clearSubcalcScreen = () => {
@@ -48,15 +59,15 @@ const storeOperator = (operator) => {
 };
 
 const screenValue = () => {
-  return document.getElementById('screen').textContent;
+  return document.querySelector('.screen').textContent;
 };
 
 const replaceValueOnScreen = (num) => {
-  document.getElementById('screen').textContent = num;
+  document.querySelector('.screen').textContent = num;
 };
 
 const appendValueToScreen = (num) => {
-  let screen = document.getElementById('screen');
+  let screen = document.querySelector('.screen');
   screen.textContent = screen.textContent.concat(num);
 };
 
@@ -70,6 +81,19 @@ const displaySubcalc = () => {
 
 const displaySubcalcAfterEquals = () => {
   document.getElementById('sub-calc').textContent = values.join(' ');
+};
+
+const toggleScreenMessageStyle = () => {
+  document.querySelector('.screen').classList.toggle('screen-message');
+};
+
+const isDivideByZero = () => {
+  if (values[1] === '/' && values[2] === 0) {
+    replaceValueOnScreen(`Cannot divide by zero`);
+    dividedByZero = true;
+    toggleScreenMessageStyle();
+  }
+  return dividedByZero;
 };
 
 const numberButtons = document.querySelectorAll('.btn-num');
@@ -86,6 +110,9 @@ operatorButtons.forEach((op) => {
     storeOperator(e.target.textContent);
 
     if (values.length === 4) {
+      if (isDivideByZero()) {
+        return;
+      }
       calculateSubtotal();
       storeOperator(e.target.textContent);
       displayNumberOnScreen(values[0]);
@@ -101,20 +128,23 @@ equalsButton.addEventListener('click', (e) => {
   storeOperator(e.target.textContent);
 
   displaySubcalcAfterEquals();
+  if (isDivideByZero()) {
+    return;
+  }
   calculateSubtotal();
   replaceValueOnScreen(values[0]);
-  values = [];
+  // values = [];
   totalWasCalculated = true;
 });
 
 const clearButton = document.querySelector('.btn-clear');
 clearButton.addEventListener('click', (e) => {
   replaceValueOnScreen(0);
-  values = [];
-  clearSubcalcScreen();
+  resetValuesAndSubcalc();
 });
 
 let values = [];
 let totalWasCalculated = false;
+let dividedByZero = false;
 
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };

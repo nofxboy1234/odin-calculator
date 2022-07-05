@@ -16,14 +16,19 @@
   font-size: 20px;
 }
 
-#screen {
+.screen {
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   border: 5px solid red;
   width: 400px;
+  height: 64px;
   font-size: 64px;
+}
+
+.screen-message {
+  font-size: 30px;
 }
 
 .row {
