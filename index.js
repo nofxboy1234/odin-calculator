@@ -20,6 +20,10 @@ const operate = (operator, num1, num2) => {
 };
 
 const displayNumberOnScreen = (num) => {
+  if (screenValue().length === 12) {
+    return;
+  }
+
   if (
     Number(screenValue()) === 0 ||
     Object.keys(operatorFunctions).includes(values.at(-1)) ||

@@ -69,11 +69,17 @@
   width: 100px;
   height: 100px;
   font-size: 64px;
+  user-select: none;
+}
+
+.btn {
+  transition: background-color 0.5s;
 }
 
 .btn:hover {
   background-color: white;
   color: black;
+  cursor: pointer;
 }
 
 .btn-num {
