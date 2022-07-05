@@ -33,8 +33,13 @@ const displayNumberOnScreen = (num) => {
     }
     if (dividedByZero) {
       dividedByZero = false;
+
       resetValuesAndSubcalc();
       toggleScreenMessageStyle();
+      toggleDisabledOperatorButtonStyle();
+      addOperatorButtonsEventListeners();
+      toggleDisabledEqualsButtonStyle();
+      addEqualsButtonEventListener();
     }
   } else {
     appendValueToScreen(num);
@@ -87,13 +92,45 @@ const toggleScreenMessageStyle = () => {
   document.querySelector('.screen').classList.toggle('screen-message');
 };
 
-const toggleOperatorButtonsEnabled = () => {};
+const toggleDisabledOperatorButtonStyle = () => {
+  const opButtons = document.querySelectorAll('.btn-operator');
+  opButtons.forEach((opBtn) => opBtn.classList.toggle('btn-disabled'));
+};
+
+const toggleDisabledEqualsButtonStyle = () => {
+  const equalsButton = document.querySelector('.btn-equals');
+  equalsButton.classList.toggle('btn-disabled');
+};
+
+const removeOperatorButtonsEventListeners = () => {
+  operatorButtons.forEach((op) => {
+    op.removeEventListener('click', operatorButtonsSetup);
+  });
+};
+
+const addOperatorButtonsEventListeners = () => {
+  operatorButtons.forEach((op) => {
+    op.addEventListener('click', operatorButtonsSetup);
+  });
+};
+
+const addEqualsButtonEventListener = () => {
+  equalsButton.addEventListener('click', equalsButtonSetup);
+};
+
+const removeEqualsButtonEventListener = () => {
+  equalsButton.removeEventListener('click', equalsButtonSetup);
+};
 
 const isDivideByZero = () => {
   if (values[1] === '/' && values[2] === 0) {
     replaceValueOnScreen(`Cannot divide by zero`);
     dividedByZero = true;
     toggleScreenMessageStyle();
+    removeOperatorButtonsEventListeners();
+    toggleDisabledOperatorButtonStyle();
+    removeEqualsButtonEventListener();
+    toggleDisabledEqualsButtonStyle();
   }
   return dividedByZero;
 };
@@ -135,6 +172,16 @@ const equalsButtonSetup = (e) => {
 const clearButtonSetup = () => {
   replaceValueOnScreen(0);
   resetValuesAndSubcalc();
+
+  if (dividedByZero) {
+    dividedByZero = false;
+
+    toggleScreenMessageStyle();
+    toggleDisabledOperatorButtonStyle();
+    addOperatorButtonsEventListeners();
+    toggleDisabledEqualsButtonStyle();
+    addEqualsButtonEventListener();
+  }
 };
 
 const numberButtons = document.querySelectorAll('.btn-num');
@@ -145,16 +192,10 @@ numberButtons.forEach((num) => {
 });
 
 const operatorButtons = document.querySelectorAll('.btn-operator');
-operatorButtons.forEach((op) => {
-  op.addEventListener('click', (e) => {
-    operatorButtonsSetup(e);
-  });
-});
+addOperatorButtonsEventListeners();
 
 const equalsButton = document.querySelector('.btn-equals');
-equalsButton.addEventListener('click', (e) => {
-  equalsButtonSetup(e);
-});
+addEqualsButtonEventListener();
 
 const clearButton = document.querySelector('.btn-clear');
 clearButton.addEventListener('click', (e) => {

@@ -52,3 +52,7 @@
   color: blue;
   font-size: 64px;
 }
+
+.btn-disabled {
+  color: rgb(221, 221, 221);
+}
