@@ -92,10 +92,6 @@
   color: white;
 }
 
-.btn-clear {
-  color: orange;
-}
-
 .btn-equals {
   background-color: #00f5d4;
   color: black;
@@ -112,4 +108,5 @@
 
 .btn-disabled {
   color: rgb(221, 221, 221);
+  background-color: rgb(240, 240, 240);
 }
