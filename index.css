@@ -1,8 +1,26 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  /* border: 1px solid greenyellow; */
+  /* width: 400px; */
+}
+
 .display {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 1px solid black;
+  width: 400px;
+  background-color: #fff890;
 }
 
 #sub-calc {
@@ -10,10 +28,10 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border: 5px solid orange;
   width: 400px;
   height: 20px;
   font-size: 20px;
+  padding: 10px;
 }
 
 .screen {
@@ -21,10 +39,10 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  border: 5px solid red;
   width: 400px;
   height: 64px;
   font-size: 64px;
+  padding: 10px;
 }
 
 .screen-message {
@@ -35,6 +53,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 400px;
 }
 
 .btn,
@@ -49,8 +68,40 @@
   border: 1px solid black;
   width: 100px;
   height: 100px;
-  color: blue;
   font-size: 64px;
+}
+
+.btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.btn-num {
+  background-color: #00bbf9;
+  color: white;
+}
+
+.btn-operator {
+  background-color: #9b5de5;
+  color: white;
+}
+
+.btn-clear {
+  color: orange;
+}
+
+.btn-equals {
+  background-color: #00f5d4;
+  color: black;
+}
+
+.btn-clear {
+  background-color: #f15bb5;
+  color: white;
+}
+
+.btn-blank {
+  background-color: rgb(240, 240, 240);
 }
 
 .btn-disabled {
