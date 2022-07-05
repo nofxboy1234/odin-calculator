@@ -30,10 +30,21 @@ const displayNumberOnScreen = (num) => {
     totalWasCalculated ||
     dividedByZero
   ) {
-    replaceValueOnScreen(num);
+    if (Number(screenValue()) === 0) {
+      replaceValueOnScreen(num);
+    }
+    if (Object.keys(operatorFunctions).includes(values.at(-1))) {
+      if (!initializedAfterOperator) {
+        replaceValueOnScreen(num);
+        initializedAfterOperator = true;
+      } else {
+        appendValueToScreen(num);
+      }
+    }
     if (totalWasCalculated) {
       totalWasCalculated = false;
       resetValuesAndSubcalc();
+      replaceValueOnScreen(num);
     }
     if (dividedByZero) {
       dividedByZero = false;
@@ -144,6 +155,7 @@ const numButtonsSetup = (e) => {
 };
 
 const operatorButtonsSetup = (e) => {
+  initializedAfterOperator = false;
   storeScreenNumber();
   storeOperator(e.target.textContent);
 
@@ -207,6 +219,7 @@ clearButton.addEventListener('click', (e) => {
 });
 
 let values = [];
+let initializedAfterOperator = false;
 let totalWasCalculated = false;
 let dividedByZero = false;
 
