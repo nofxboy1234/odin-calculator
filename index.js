@@ -87,6 +87,8 @@ const toggleScreenMessageStyle = () => {
   document.querySelector('.screen').classList.toggle('screen-message');
 };
 
+const toggleOperatorButtonsEnabled = () => {};
+
 const isDivideByZero = () => {
   if (values[1] === '/' && values[2] === 0) {
     replaceValueOnScreen(`Cannot divide by zero`);
@@ -96,34 +98,27 @@ const isDivideByZero = () => {
   return dividedByZero;
 };
 
-const numberButtons = document.querySelectorAll('.btn-num');
-numberButtons.forEach((num) => {
-  num.addEventListener('click', (e) => {
-    displayNumberOnScreen(e.target.textContent);
-  });
-});
+const numButtonsSetup = (e) => {
+  displayNumberOnScreen(e.target.textContent);
+};
 
-const operatorButtons = document.querySelectorAll('.btn-operator');
-operatorButtons.forEach((op) => {
-  op.addEventListener('click', (e) => {
-    storeScreenNumber();
-    storeOperator(e.target.textContent);
+const operatorButtonsSetup = (e) => {
+  storeScreenNumber();
+  storeOperator(e.target.textContent);
 
-    if (values.length === 4) {
-      if (isDivideByZero()) {
-        return;
-      }
-      calculateSubtotal();
-      storeOperator(e.target.textContent);
-      displayNumberOnScreen(values[0]);
+  if (values.length === 4) {
+    if (isDivideByZero()) {
+      return;
     }
+    calculateSubtotal();
+    storeOperator(e.target.textContent);
+    displayNumberOnScreen(values[0]);
+  }
 
-    displaySubcalc();
-  });
-});
+  displaySubcalc();
+};
 
-const equalsButton = document.querySelector('.btn-equals');
-equalsButton.addEventListener('click', (e) => {
+const equalsButtonSetup = (e) => {
   storeScreenNumber();
   storeOperator(e.target.textContent);
 
@@ -135,12 +130,35 @@ equalsButton.addEventListener('click', (e) => {
   replaceValueOnScreen(values[0]);
   // values = [];
   totalWasCalculated = true;
+};
+
+const clearButtonSetup = () => {
+  replaceValueOnScreen(0);
+  resetValuesAndSubcalc();
+};
+
+const numberButtons = document.querySelectorAll('.btn-num');
+numberButtons.forEach((num) => {
+  num.addEventListener('click', (e) => {
+    numButtonsSetup(e);
+  });
+});
+
+const operatorButtons = document.querySelectorAll('.btn-operator');
+operatorButtons.forEach((op) => {
+  op.addEventListener('click', (e) => {
+    operatorButtonsSetup(e);
+  });
+});
+
+const equalsButton = document.querySelector('.btn-equals');
+equalsButton.addEventListener('click', (e) => {
+  equalsButtonSetup(e);
 });
 
 const clearButton = document.querySelector('.btn-clear');
 clearButton.addEventListener('click', (e) => {
-  replaceValueOnScreen(0);
-  resetValuesAndSubcalc();
+  clearButtonSetup();
 });
 
 let values = [];
