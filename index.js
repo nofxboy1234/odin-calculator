@@ -31,8 +31,9 @@ function updateState() {
   } else if (state.at(-1) === '0' || Number(state.at(-1))) {
     if (lastButtonPressed === '0' || Number(lastButtonPressed)) {
       if (state.length === 1) {
-        if (state[0] === '0') {
+        if (state[0] === '0' || equalsWasPressed) {
           state[0] = lastButtonPressed;
+          equalsWasPressed = false;
         } else {
           state[0] = state[0] + lastButtonPressed;
         }
@@ -83,6 +84,7 @@ function equalsButtonPressed(e) {
   if (state.length === 3) {
     state = [operate(state[1], Number(state[0]), Number(state[2]))];
     mainDisplay.textContent = state.at(0);
+    equalsWasPressed = true;
   }
 }
 
@@ -108,4 +110,5 @@ let state = [];
 let lastButtonPressed = '';
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
 const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+let equalsWasPressed = false;
 updateState();
