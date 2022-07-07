@@ -19,22 +19,57 @@ function operate(operator, num1, num2) {
   return func(num1, num2);
 }
 
+function isOperator(value) {
+  return Object.keys(operatorFunctions).includes(value);
+}
+
 function updateState() {
-  if (lastButtonPressed === 'C') {
-    state[0] = '0';
-  } else if (state.length === 0) {
+  if (state.length === 0) {
     state.push('0');
-  } else if (state.length === 1) {
-    if (state[0] === '0') {
-      state[0] = lastButtonPressed;
-    } else {
-      state[0] = state[0] + lastButtonPressed;
+  } else if (lastButtonPressed === 'C') {
+    state[0] = '0';
+  } else if (state.at(-1) === '0' || Number(state.at(-1))) {
+    if (lastButtonPressed === '0' || Number(lastButtonPressed)) {
+      if (state.length === 1) {
+        if (state[0] === '0') {
+          state[0] = lastButtonPressed;
+        } else {
+          state[0] = state[0] + lastButtonPressed;
+        }
+      } else if (state.length === 3) {
+        state[2] = state[2] + lastButtonPressed;
+      }
+    } else if (isOperator(lastButtonPressed)) {
+      if (state.length === 0) {
+        console.log('Trying to operate on empty state');
+      } else if (state.length === 3) {
+        state = [operate(state[1], Number(state[0]), Number(state[2]))];
+        state.push(lastButtonPressed);
+      } else {
+        state.push(lastButtonPressed);
+      }
+    }
+  } else if (isOperator(state.at(-1))) {
+    if (lastButtonPressed === '0' || Number(lastButtonPressed)) {
+      state.push(lastButtonPressed);
+    } else if (isOperator(lastButtonPressed)) {
+      state[state.length - 1] = lastButtonPressed;
     }
   }
-  mainDisplay.textContent = state.at(-1);
+
+  if (state.length === 3) {
+    mainDisplay.textContent = state.at(2);
+  } else {
+    mainDisplay.textContent = state.at(0);
+  }
 }
 
 function numberButtonPressed(e) {
+  lastButtonPressed = e.target.textContent;
+  updateState();
+}
+
+function operatorButtonPressed(e) {
   lastButtonPressed = e.target.textContent;
   updateState();
 }
@@ -47,8 +82,13 @@ function clearButtonPressed(e) {
 const mainDisplay = document.querySelector('.main-display');
 
 const numberButtons = document.querySelectorAll('.btn-num');
-numberButtons.forEach((num) => {
-  num.addEventListener('click', numberButtonPressed);
+numberButtons.forEach((numButton) => {
+  numButton.addEventListener('click', numberButtonPressed);
+});
+
+const operatorButtons = document.querySelectorAll('.btn-operator');
+operatorButtons.forEach((opButton) => {
+  opButton.addEventListener('click', operatorButtonPressed);
 });
 
 const clearButton = document.querySelector('.btn-clear');
@@ -57,4 +97,5 @@ clearButton.addEventListener('click', clearButtonPressed);
 let state = [];
 let lastButtonPressed = '';
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
+const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 updateState();
