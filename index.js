@@ -20,7 +20,12 @@ function operate(operator, num1, num2) {
     return 0;
   }
   const func = operatorFunctions[operator];
-  return func(num1, num2);
+  let answer = func(num1, num2);
+  if (answer.toLocaleString('fullwide', { useGrouping: false }).length > 12) {
+    return answer.toExponential(6);
+  } else {
+    return answer;
+  }
 }
 
 function isOperator(value) {
