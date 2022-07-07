@@ -28,9 +28,22 @@ function isOperator(value) {
 }
 
 function updateState() {
+  // Don't display '00'
   if (mainDisplay.textContent === '0' && lastButtonPressed === '0') {
     return;
   }
+  // Limit the display to 12 digits
+  if (
+    (mainDisplay.textContent.length === 12 &&
+      Number(lastButtonPressed) &&
+      Number(state.at(-1))) ||
+    (mainDisplay.textContent.length === 12 &&
+      lastButtonPressed === '0' &&
+      Number(state.at(-1)))
+  ) {
+    return;
+  }
+
   if (state.length === 0) {
     state.push('0');
   } else if (lastButtonPressed === 'C') {
