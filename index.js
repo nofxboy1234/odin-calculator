@@ -79,6 +79,13 @@ function clearButtonPressed(e) {
   updateState();
 }
 
+function equalsButtonPressed(e) {
+  if (state.length === 3) {
+    state = [operate(state[1], Number(state[0]), Number(state[2]))];
+    mainDisplay.textContent = state.at(0);
+  }
+}
+
 const mainDisplay = document.querySelector('.main-display');
 
 const numberButtons = document.querySelectorAll('.btn-num');
@@ -93,6 +100,9 @@ operatorButtons.forEach((opButton) => {
 
 const clearButton = document.querySelector('.btn-clear');
 clearButton.addEventListener('click', clearButtonPressed);
+
+const equalsButton = document.querySelector('.btn-equals');
+equalsButton.addEventListener('click', equalsButtonPressed);
 
 let state = [];
 let lastButtonPressed = '';
