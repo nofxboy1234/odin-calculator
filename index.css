@@ -23,7 +23,7 @@
   background-color: #fff890;
 }
 
-#sub-calc {
+.sub-display {
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
@@ -34,7 +34,7 @@
   padding: 10px;
 }
 
-.screen {
+.main-display {
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
@@ -45,7 +45,7 @@
   padding: 10px;
 }
 
-.screen-message {
+.display-message {
   font-size: 30px;
 }
 

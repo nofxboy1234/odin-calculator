@@ -19,24 +19,42 @@ function operate(operator, num1, num2) {
   return func(num1, num2);
 }
 
-function checkValues() {
-  if (values.length == 0) {
-    values.push(0);
+function updateState() {
+  if (lastButtonPressed === 'C') {
+    state[0] = '0';
+  } else if (state.length === 0) {
+    state.push('0');
+  } else if (state.length === 1) {
+    if (state[0] === '0') {
+      state[0] = lastButtonPressed;
+    } else {
+      state[0] = state[0] + lastButtonPressed;
+    }
   }
+  mainDisplay.textContent = state.at(-1);
 }
 
 function numberButtonPressed(e) {
-  console.log('numberButtonPressed');
-  mainDisplay.textContent = e.target.textContent;
+  lastButtonPressed = e.target.textContent;
+  updateState();
 }
 
-const mainDisplay = document.querySelector('.screen');
+function clearButtonPressed(e) {
+  lastButtonPressed = e.target.textContent;
+  updateState();
+}
+
+const mainDisplay = document.querySelector('.main-display');
 
 const numberButtons = document.querySelectorAll('.btn-num');
 numberButtons.forEach((num) => {
   num.addEventListener('click', numberButtonPressed);
 });
 
-let values = [];
-checkValues();
+const clearButton = document.querySelector('.btn-clear');
+clearButton.addEventListener('click', clearButtonPressed);
+
+let state = [];
+let lastButtonPressed = '';
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
+updateState();
