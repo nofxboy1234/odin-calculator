@@ -19,6 +19,11 @@ const operate = (operator, num1, num2) => {
   return func(num1, num2);
 };
 
+const displayTotalOnScreen = (num) => {
+  replaceValueOnScreen(num);
+  initializedAfterOperator = true;
+};
+
 const displayNumberOnScreen = (num) => {
   if (screenValue().length === 12) {
     return;
@@ -34,12 +39,7 @@ const displayNumberOnScreen = (num) => {
       replaceValueOnScreen(num);
     }
     if (Object.keys(operatorFunctions).includes(values.at(-1))) {
-      if (!initializedAfterOperator) {
-        replaceValueOnScreen(num);
-        initializedAfterOperator = true;
-      } else {
-        appendValueToScreen(num);
-      }
+      replaceValueOnScreen(num);
     }
     if (totalWasCalculated) {
       totalWasCalculated = false;
@@ -165,7 +165,7 @@ const operatorButtonsSetup = (e) => {
     }
     calculateSubtotal();
     storeOperator(e.target.textContent);
-    displayNumberOnScreen(values[0]);
+    displayTotalOnScreen(values[0]);
   }
 
   displaySubcalc();
