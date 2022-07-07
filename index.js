@@ -15,6 +15,10 @@ function divide(num1, num2) {
 }
 
 function operate(operator, num1, num2) {
+  if (operator === '/' && num2 === 0) {
+    alert('Cannot divide by zero');
+    return 0;
+  }
   const func = operatorFunctions[operator];
   return func(num1, num2);
 }
@@ -24,10 +28,13 @@ function isOperator(value) {
 }
 
 function updateState() {
+  if (mainDisplay.textContent === '0' && lastButtonPressed === '0') {
+    return;
+  }
   if (state.length === 0) {
     state.push('0');
   } else if (lastButtonPressed === 'C') {
-    state[0] = '0';
+    state = ['0'];
   } else if (state.at(-1) === '0' || Number(state.at(-1))) {
     if (lastButtonPressed === '0' || Number(lastButtonPressed)) {
       if (state.length === 1) {
@@ -44,7 +51,9 @@ function updateState() {
       if (state.length === 0) {
         console.log('Trying to operate on empty state');
       } else if (state.length === 3) {
-        state = [operate(state[1], Number(state[0]), Number(state[2]))];
+        state = [
+          operate(state[1], Number(state[0]), Number(state[2])).toString(),
+        ];
         state.push(lastButtonPressed);
       } else {
         state.push(lastButtonPressed);
@@ -82,7 +91,7 @@ function clearButtonPressed(e) {
 
 function equalsButtonPressed(e) {
   if (state.length === 3) {
-    state = [operate(state[1], Number(state[0]), Number(state[2]))];
+    state = [operate(state[1], Number(state[0]), Number(state[2])).toString()];
     mainDisplay.textContent = state.at(0);
     equalsWasPressed = true;
   }
