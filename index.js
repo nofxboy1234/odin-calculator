@@ -115,7 +115,7 @@ function equalsButtonPressed(e) {
   }
 }
 
-const mainDisplay = document.querySelector('.main-display');
+const mainDisplay = document.querySelector('.display');
 
 const numberButtons = document.querySelectorAll('.btn-num');
 numberButtons.forEach((numButton) => {
