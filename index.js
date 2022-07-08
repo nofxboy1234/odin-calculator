@@ -139,7 +139,6 @@ equalsButton.addEventListener('click', equalsButtonPressed);
 let state = [];
 let lastButtonPressed = '';
 const operatorFunctions = { '+': add, '-': subtract, x: multiply, '/': divide };
-const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 let equalsWasPressed = false;
 
 if (state.length === 0) {
