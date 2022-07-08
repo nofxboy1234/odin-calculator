@@ -73,7 +73,11 @@ function numberButtonPressed(e) {
         state[0] = state[0] + lastButtonPressed;
       }
     } else if (state.length === 3) {
-      state[2] = state[2] + lastButtonPressed;
+      if (state[2] === '0') {
+        state[2] = lastButtonPressed;
+      } else {
+        state[2] = state[2] + lastButtonPressed;
+      }
     }
   } else if (isOperator(state.at(-1))) {
     state.push(lastButtonPressed);
@@ -83,9 +87,6 @@ function numberButtonPressed(e) {
 
 function operatorButtonPressed(e) {
   lastButtonPressed = e.target.textContent;
-  // if (validateInput()) {
-  //   return;
-  // }
   if (state.at(-1) === '0' || Number(state.at(-1))) {
     if (state.length === 0) {
       console.log('Trying to operate on empty state');
@@ -105,9 +106,6 @@ function operatorButtonPressed(e) {
 
 function clearButtonPressed(e) {
   lastButtonPressed = e.target.textContent;
-  // if (validateInput()) {
-  //   return;
-  // }
   state = ['0'];
   updateDisplay();
 }
