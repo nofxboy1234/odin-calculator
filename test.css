@@ -1,0 +1,56 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.container {
+  border: 5px solid rgb(136, 255, 0);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container2 {
+  border: 5px solid rgb(98, 0, 255);
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.row {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.display {
+  border: 5px solid rgb(255, 0, 106);
+}
+
+.row1 {
+  border: 5px solid rgb(0, 195, 255);
+}
+
+.row2 {
+  border: 5px solid rgb(255, 196, 0);
+}
+
+.row3 {
+  border: 5px solid rgb(255, 0, 242);
+}
+
+.row4 {
+  border: 5px solid rgb(0, 255, 234);
+}
+
+.row5 {
+  border: 5px solid rgb(71, 252, 0);
+}
+
+.item {
+  border: 5px solid black;
+  width: 100px;
+}
