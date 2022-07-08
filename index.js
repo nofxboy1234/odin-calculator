@@ -32,10 +32,10 @@ function isOperator(value) {
   return Object.keys(operatorFunctions).includes(value);
 }
 
-function updateState() {
+function validateInput() {
   // Don't display '00'
   if (mainDisplay.textContent === '0' && lastButtonPressed === '0') {
-    return;
+    return true;
   }
   // Limit the display to 12 digits
   if (
@@ -46,6 +46,21 @@ function updateState() {
       lastButtonPressed === '0' &&
       Number(state.at(-1)))
   ) {
+    return true;
+  }
+  return false;
+}
+
+function updateDisplay() {
+  if (state.length === 3) {
+    mainDisplay.textContent = state.at(2);
+  } else {
+    mainDisplay.textContent = state.at(0);
+  }
+}
+
+function updateState() {
+  if (validateInput()) {
     return;
   }
 
@@ -85,11 +100,7 @@ function updateState() {
     }
   }
 
-  if (state.length === 3) {
-    mainDisplay.textContent = state.at(2);
-  } else {
-    mainDisplay.textContent = state.at(0);
-  }
+  updateDisplay();
 }
 
 function numberButtonPressed(e) {
