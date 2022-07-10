@@ -21,7 +21,7 @@ function operate(operator, num1, num2) {
   }
   const func = operatorFunctions[operator];
   let answer = func(num1, num2);
-  if (answer.toLocaleString('fullwide', { useGrouping: false }).length > 12) {
+  if (answer.toString().length > 12) {
     return answer.toExponential(6);
   } else {
     return answer;
