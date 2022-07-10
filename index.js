@@ -33,6 +33,9 @@ function isOperator(value) {
 }
 
 function validateInput() {
+  if (equalsWasPressed) {
+    return false;
+  }
   // Don't display '00'
   if (mainDisplay.textContent === '0' && lastButtonPressed === '0') {
     return true;
@@ -86,6 +89,7 @@ function numberButtonPressed(e) {
 }
 
 function operatorButtonPressed(e) {
+  equalsWasPressed = false;
   lastButtonPressed = e.target.textContent;
   if (state.at(-1) === '0' || Number(state.at(-1))) {
     if (state.length === 0) {
